@@ -66,7 +66,7 @@
     document.getElementById("fleetForm").addEventListener("submit" , function(e){
         e.preventDefault();
         let regNo = document.getElementById("regNo").value.trim();
-        let category = document.getElementById("category").value();
+        let category = document.getElementById("category").value;
         let driver = document.getElementById("driver").value.trim();
         let availability = document.getElementById("isAvailable").value;
         if (regNo === "" || driver === ""){
@@ -91,10 +91,10 @@
         let fCat = document.getElementById("filterCategory").value;
         let fAvail = document.getElementById("filterAvailability").value;
 
-        let data = fleets. filter(v=>{
-            if(fCat !== "All" && v.category !== fCat)
+        let data = fleets.filter(v=>{
+            if(fCat !== "ALL" && v.category !== fCat)
             return false;
-         if(fAvail !== "All" && v.availability !== fAvail)
+         if(fAvail !== "ALL" && v.availability !== fAvail)
             return false;
         return true;
         })
@@ -114,14 +114,62 @@
             let btn1 = document.createElement("button");
             btn1.innerText = "Update Driver";
             btn1.onclick = function(){
-                update driver
-            }
-        }
-        
-        }
+                updateDriver(v.id);};
 
+                let btn2 = document.createElement("button");
+            btn2.innerText = "Change Availability";
+            btn2.onclick = function(){
+                toggleAvailability(v.id);};
+
+                let btn3 = document.createElement("button");
+            btn3.innerText = "Delete";
+            btn3.onclick = function(){
+                deleteVehicle(v.id);};
+            
+                card.append(btn1, btn2, btn3);
+                container.appendChild(card);
+        })
     }
-    
+
+    // UPDATE DRIVER
+function updateDriver(id){
+    let newName = prompt("Enter new driver name:");
+    if(newName === null) return;
+    if(newName.trim() === ""){
+        alert("Driver name cannot be empty");
+        return;
+    }
+
+    let obj = fleets.find(v=>v.id === id);
+    obj.driver = newName;
+    renderCards();
+}
+
+// TOGGLE AVAILABILITY
+function toggleAvailability(id){
+    let obj = fleets.find(v=>v.id === id);
+    obj.availability = obj.availability === "Available" ? "Unavailable" : "Available";
+    renderCards();
+}
+
+// DELETE
+function deleteVehicle(id){
+    if(confirm("Are you sure?")){
+        fleets = fleets.filter(v=>v.id !== id);
+        renderCards();
+    }
+}
+
+// FILTER EVENTS
+document.getElementById("filterCategory").onchange = renderCards;
+document.getElementById("filterAvailability").onchange = renderCards;
+
+document.getElementById("clearFilters").onclick = function(){
+    document.getElementById("filterCategory").value = "ALL";
+    document.getElementById("filterAvailability").value = "ALL";
+    renderCards();
+}
+
  </script>
 </body>
 </html>
