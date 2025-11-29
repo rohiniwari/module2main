@@ -58,6 +58,70 @@
 <hr>
 
 <!-- Main area -->
- 
+ <div id="cardsContainer"></div>
+ <script>
+    let fleets = [];
+    const SAMPLE_IMG ="https://coding-platform.s3.amazonaws.com/dev/lms/tickets/5e80fcb6-3f8e-480c-945b-30a5359eb40e/JNmYjkVr3WOjsrbu.png";
+
+    document.getElementById("fleetForm").addEventListener("submit" , function(e){
+        e.preventDefault();
+        let regNo = document.getElementById("regNo").value.trim();
+        let category = document.getElementById("category").value();
+        let driver = document.getElementById("driver").value.trim();
+        let availability = document.getElementById("isAvailable").value;
+        if (regNo === "" || driver === ""){
+            alert("All fields required");
+            return;
+        }
+        fleets.push({
+            id:Date.now(),
+            regNo,
+            category,
+            driver,
+            availability
+        });
+        document.getElementById("fleetForm").reset();
+        renderCards();
+    });
+
+    function renderCards(){
+        let container = document.getElementById("cardsContainer");
+        container.innerHTML = "";
+
+        let fCat = document.getElementById("filterCategory").value;
+        let fAvail = document.getElementById("filterAvailability").value;
+
+        let data = fleets. filter(v=>{
+            if(fCat !== "All" && v.category !== fCat)
+            return false;
+         if(fAvail !== "All" && v.availability !== fAvail)
+            return false;
+        return true;
+        })
+
+        data.forEach(v=>{
+            let card = document.createElement("div");
+            card.style.border = "1px solid black";
+            card.style.padding = "10px";
+            card.style.margin = "10px 0";
+            card. innerHTML = `
+            <img src="${SAMPLE_IMG}" width="200"><br>
+            <p><b>Reg:</b> ${v.regNo}</p>
+             <p><b>Category:</b> ${v.category}</p>
+              <p><b>Driver:</b> <span id="d-${v.id}">${v.driver}</span></p>
+               <p><b>Availability:</b><span id="a-${v.id}">${v.availability}</span></p>
+            `;
+            let btn1 = document.createElement("button");
+            btn1.innerText = "Update Driver";
+            btn1.onclick = function(){
+                update driver
+            }
+        }
+        
+        }
+
+    }
+    
+ </script>
 </body>
 </html>
