@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- navbar -->
+     <h2>FLEET MANAGEMENT APP</h2>
+     <select id="filterCategory">
+        <option value="ALL">All</option>
+        <option value="Auto">Auto</option>
+        <option value="Truck">Truck</option>
+        <option value="Car">Car</option>
+        <option value="Bus">Bus</option>
+     </select>
+     <label>Availability:</label>
+     <select id="filterAvailability">
+        <option value="ALL">All</option>
+        <option value="Available">Available</option>
+        <option value="Unavailable">Unavailable</option>
+        </select>
+<button id="clearFilters">Clear Filters</button>
+   
+<hr>
+
+<!-- sidebar -->
+ <h3>Add Fleet</h3>
+ <form id ="fleetForm">
+    <label>Reg No:</label>
+    <br>
+    <input type="text" id="regNo"><br><br>
+
+    <label>Category:</label>
+    <br>
+    <select id="category">
+       
+        <option >Auto</option>
+        <option >Truck</option>
+        <option >Car</option>
+        <option >Bus</option>
+     </select> <br>
+     <br>
+     <label>Driver:</label>
+     <br>
+     <input type="text" id="driver"><br><br>
+     <label>Availability:</label><br>
+      <select id="isAvailable">
+        <option >Available</option>
+        <option >Unavailable</option>
+      
+     </select>
+     <br>
+     <br>
+     <button type="submit">Add Fleet</button>
+ </form>
+<hr>
+
+<!-- Main area -->
+ 
+</body>
+</html>
